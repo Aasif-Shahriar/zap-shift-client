@@ -33,7 +33,8 @@ const FeatureCards = () => {
             key={index}
             className="flex flex-col md:flex-row items-center bg-gray-50 rounded-2xl p-6 shadow-sm"
             data-aos={feature.aos}
-            data-aos-delay={index * 100} 
+            data-aos-delay={index * 100}
+            data-aos-duration="1000"
           >
             {/* Image */}
             <div className="w-full md:w-1/4 flex justify-center mb-4 md:mb-0">
@@ -52,7 +53,9 @@ const FeatureCards = () => {
               <h3 className="text-xl font-semibold text-secondary mb-2">
                 {feature.title}
               </h3>
-              <p className="text-gray-600 text-sm md:text-base">{feature.text}</p>
+              <p className="text-gray-600 text-sm md:text-base">
+                {feature.text}
+              </p>
             </div>
           </div>
         ))}

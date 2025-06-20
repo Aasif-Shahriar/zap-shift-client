@@ -39,7 +39,7 @@ const BrandLogoSlider = () => {
             key={idx}
             src={logo.src}
             alt={logo.alt}
-            className="h-8 mx-10 grayscale hover:grayscale-0 transition duration-300"
+            className="h-8 mx-10 "
           />
         ))}
       </Marquee>
