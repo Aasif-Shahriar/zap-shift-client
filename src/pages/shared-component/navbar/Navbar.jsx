@@ -1,13 +1,35 @@
 import React from "react";
 import { HiMiniBars3 } from "react-icons/hi2";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import ProFastLogo from "../profast-logo/ProFastLogo";
+import useAuth from "../../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+  const { logOut, user } = useAuth();
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        toast.warning("logged out successful");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const links = (
     <>
-      <li><NavLink to="/">Home</NavLink></li>
-      <li><NavLink to="/about">About Us</NavLink></li>
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/send-parcel">Send A Parcel</NavLink>
+      </li>
+      <li>
+        <NavLink to="/coverage">Coverage</NavLink>
+      </li>
+      <li>
+        <NavLink to="/about">About Us</NavLink>
+      </li>
     </>
   );
   return (
@@ -30,7 +52,15 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {user ? (
+          <button onClick={handleLogout} className="btn btn-primary text-black">
+            Log Out
+          </button>
+        ) : (
+          <Link to='/login'>
+            <button className="btn btn-primary text-black">Log In</button>
+          </Link>
+        )}
       </div>
     </div>
   );

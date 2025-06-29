@@ -15,3 +15,7 @@
 body{
      font-family: "Urbanist", sans-serif;
 }
+
+a.active{
+  @apply bg-primary text-black
+}

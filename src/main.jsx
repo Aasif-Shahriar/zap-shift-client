@@ -3,16 +3,22 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { router } from "./router/router.jsx";
 import { RouterProvider } from "react-router";
-import 'aos/dist/aos.css';
+import "aos/dist/aos.css";
 import Aos from "aos";
+import AuthProvider from "./contexts/AuthProvider/AuthProvider.jsx";
+import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 
 Aos.init({
   offset: 0,
-  
-})
+});
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+      <ToastContainer />
+       <Toaster position="top-center" />
+    </AuthProvider>
   </StrictMode>
 );
