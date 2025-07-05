@@ -1,15 +1,35 @@
 import React from "react";
 import useAuth from "../../../hooks/useAuth";
 import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router";
+import useAxios from "../../../hooks/useAxios";
 
 const SocialLogin = () => {
   const { signInWithGoogle } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from || "/";
+  const axiosInstance = useAxios();
 
   const handleGoogleLogin = () => {
     signInWithGoogle()
-      .then((result) => {
-        console.log(result.user);
-        toast.success("logged in successful")
+      .then(async (result) => {
+        const user = result.user;
+
+        const userInfo = {
+          email: user.email,
+          role: "user",
+          created_at: new Date().toISOString(),
+          last_logged_in: new Date().toISOString(),
+        };
+
+        //save in db
+        const userRes = await axiosInstance.post("/users", userInfo);
+        console.log(userRes.data);
+        if (userRes.data.insertedId) {
+          toast.success("logged in successful");
+        }
+        navigate(from);
       })
       .catch((err) => {
         console.log(err);
@@ -17,7 +37,7 @@ const SocialLogin = () => {
   };
   return (
     <div>
-      <p className="mb-4 text-center">OR</p>
+      <div className="divider">or</div>
       <button
         onClick={handleGoogleLogin}
         className="btn w-full bg-white text-black border-[#e5e5e5]"

@@ -1,16 +1,21 @@
 import React from "react";
 import useAuth from "../hooks/useAuth";
-import { Navigate } from "react-router";
+import { Navigate, useLocation } from "react-router";
+import Loading from "../pages/shared-component/loading/Loading";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
+  const location = useLocation();
+  console.log(location);
 
   if (loading) {
-    return <span className="loading loading-spinner loading-xl"></span>;
+    return <Loading />;
   }
 
   if (!user) {
-    <Navigate to="/login"></Navigate>;
+    return (
+      <Navigate state={{ from: location.pathname }} to="/login"></Navigate>
+    );
   }
 
   return children;

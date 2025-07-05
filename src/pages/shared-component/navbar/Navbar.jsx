@@ -28,18 +28,23 @@ const Navbar = () => {
         <NavLink to="/coverage">Coverage</NavLink>
       </li>
 
-      {
-        user && <>
+      {user && (
+        <>
           <li>
-        <NavLink to="/dashboard">Dashborad</NavLink>
-      </li>
+            <NavLink to="/dashboard">Dashborad</NavLink>
+          </li>
         </>
-      }
-      
+      )}
+
+      <li>
+        <NavLink to="/rider">Become A Rider</NavLink>
+      </li>
       <li>
         <NavLink to="/about">About Us</NavLink>
       </li>
     </>
+
+    
   );
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -62,11 +67,21 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         {user ? (
-          <button onClick={handleLogout} className="btn btn-primary text-black">
-            Log Out
-          </button>
+          <>
+            <div className="avatar mr-2">
+              <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring-2 ring-offset-2">
+                <img src={user?.photoURL} />
+              </div>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="btn btn-primary text-black"
+            >
+              Log Out
+            </button>
+          </>
         ) : (
-          <Link to='/login'>
+          <Link to="/login">
             <button className="btn btn-primary text-black">Log In</button>
           </Link>
         )}
